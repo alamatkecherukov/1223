@@ -2,7 +2,7 @@
 <html lang="ru" style="--logo-size: 22px; --bg: #0a0a0f; --accent: #a78bfa; --text: #f0f0f0; --hero-overlay: rgba(5,5,15,5);"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>fgfdgfadgfdagf</title>
+<title>Медиа</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 /* ── VARS ── */
@@ -323,8 +323,11 @@ a{color:inherit;text-decoration:none}
 .pw-cancel:hover{color:var(--text)}
 #pw-err-msg{font-size:11px;color:#f87171;min-height:14px;margin-top:4px}
 
+/* ─── РЕДАКТОР ПО УМОЛЧАНИЮ СКРЫТ ─── */
+#editor { display: none; }
+#publish-bar { display: none; }
+
 #editor{
-  display:none;
   position:fixed;top:0;right:0;
   width:min(380px,100vw);
   height:100dvh;
@@ -673,7 +676,7 @@ input[type=range].fi::-webkit-slider-thumb{
 <body>
 
 <!-- TOPBAR -->
-<div id="topbar" style="background: rgba(10, 10, 20, 0.55);">
+<div id="topbar">
   <div id="logo">fgfdgfadgfdagf</div>
 </div>
 
@@ -774,7 +777,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div>
 
 <!-- EDITOR -->
-<div id="editor" class="open">
+<div id="editor" class="" style="display: none;">
   <div id="ed-topbar">
     <span id="ed-topbar-title">✦ РЕДАКТОР</span>
     <button id="ed-close" onclick="closeEditor()">×</button>
@@ -1147,7 +1150,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div><!-- /editor -->
 
 <!-- ─── PUBLISH BAR ─── -->
-<div id="publish-bar" class="active">
+<div id="publish-bar" class="" style="display: none;">
   <button class="publish-btn github" onclick="openGithubSettings()">
     <i class="fab fa-github"></i> Сохранить на GitHub
   </button>
@@ -1188,6 +1191,21 @@ let featuredCards=[], articlesCards=[];
 let uploadedFontName='';
 let editMode = false;
 let githubConfig = { repo: '', file: 'index.html', token: '' };
+
+// ─── ПРИНУДИТЕЛЬНО ЗАКРЫВАЕМ РЕДАКТОР ПРИ ЗАГРУЗКЕ ───
+(function() {
+  const editor = document.getElementById('editor');
+  const publishBar = document.getElementById('publish-bar');
+  
+  if (editor) {
+    editor.classList.remove('open');
+    editor.style.display = 'none';
+  }
+  if (publishBar) {
+    publishBar.classList.remove('active');
+    publishBar.style.display = 'none';
+  }
+})();
 
 /* ── LOGO SECRET ── */
 document.getElementById('logo').addEventListener('click',()=>{
@@ -1235,16 +1253,28 @@ function openEditor(){
   if (document.getElementById('editor').classList.contains('open')) return;
   
   syncFields();renderFeatList();renderArtsList();
-  document.getElementById('editor').classList.add('open');
-  document.getElementById('publish-bar').classList.add('active');
+  const editor = document.getElementById('editor');
+  const publishBar = document.getElementById('publish-bar');
+  
+  editor.classList.add('open');
+  editor.style.display = 'flex';
+  publishBar.classList.add('active');
+  publishBar.style.display = 'flex';
   editMode = true;
   loadGithubConfig();
 }
+
 function closeEditor(){
-  document.getElementById('editor').classList.remove('open');
-  document.getElementById('publish-bar').classList.remove('active');
+  const editor = document.getElementById('editor');
+  const publishBar = document.getElementById('publish-bar');
+  
+  editor.classList.remove('open');
+  editor.style.display = 'none';
+  publishBar.classList.remove('active');
+  publishBar.style.display = 'none';
   editMode = false;
 }
+
 function exitEditor(){
   collectAllData();
   saveToStorage();
@@ -1708,7 +1738,13 @@ async function publishToGithub() {
   setGithubStatus('⏳ Отправка на GitHub...', 'loading');
   
   try {
+    // ПЕРЕД СОХРАНЕНИЕМ ПРИНУДИТЕЛЬНО ЗАКРЫВАЕМ РЕДАКТОР
+    closeEditor();
+    
+    // Сохраняем данные
     saveToStorage();
+    
+    // Получаем полный HTML с закрытым редактором
     const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     const encoded = btoa(unescape(encodeURIComponent(fullHtml)));
     
@@ -1791,7 +1827,7 @@ articlesCards = [
   {id:12,title:'Статья третья',url:'#',tag:'Репортаж',meta:'Источник',img:'',titleSize:15},
 ];
 
-// Загружаем данные БЕЗ автоматического открытия редактора
+// Загружаем данные
 if (!loadFromStorage()) {
   renderFeatured();
   renderArticles();
@@ -1806,17 +1842,10 @@ document.querySelector('.publish-btn.github').addEventListener('click', function
   }
 });
 
-// Проверка, не открыт ли редактор случайно при загрузке
-// Если редактор открыт - закрываем его
-window.addEventListener('load', function() {
-  if (document.getElementById('editor').classList.contains('open')) {
-    closeEditor();
-  }
-});
-
 console.log('💡 10 кликов по логотипу → редактор');
 console.log('📥 Данные хранятся в <script id="siteDataStore">');
 console.log('⬆️ Кнопка "Сохранить на GitHub" публикует изменения');
+console.log('🔒 Редактор принудительно закрыт при загрузке страницы');
 </script>
 
-<div class="toast" style="opacity: 1;">Топ-бар обновлён ✓</div></body></html>
+</body></html>
