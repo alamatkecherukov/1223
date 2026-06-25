@@ -3,7 +3,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Медиа</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 /* ── VARS ── */
 :root {
@@ -323,11 +322,8 @@ a{color:inherit;text-decoration:none}
 .pw-cancel:hover{color:var(--text)}
 #pw-err-msg{font-size:11px;color:#f87171;min-height:14px;margin-top:4px}
 
-/* ─── РЕДАКТОР ПО УМОЛЧАНИЮ СКРЫТ ─── */
-#editor { display: none; }
-#publish-bar { display: none; }
-
 #editor{
+  display:none;
   position:fixed;top:0;right:0;
   width:min(380px,100vw);
   height:100dvh;
@@ -765,7 +761,7 @@ input[type=range].fi::-webkit-slider-thumb{
 <footer id="site-footer"><span id="footer-text">© 2025 Медиа</span></footer>
 
 <!-- PASSWORD OVERLAY -->
-<div id="pw-overlay" class="">
+<div id="pw-overlay">
   <div id="pw-box">
     <h2>Редактор</h2>
     <p>Введите пароль для доступа</p>
@@ -777,7 +773,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div>
 
 <!-- EDITOR -->
-<div id="editor" class="" style="display: none;">
+<div id="editor">
   <div id="ed-topbar">
     <span id="ed-topbar-title">✦ РЕДАКТОР</span>
     <button id="ed-close" onclick="closeEditor()">×</button>
@@ -1150,7 +1146,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div><!-- /editor -->
 
 <!-- ─── PUBLISH BAR ─── -->
-<div id="publish-bar" class="" style="display: none;">
+<div id="publish-bar">
   <button class="publish-btn github" onclick="openGithubSettings()">
     <i class="fab fa-github"></i> Сохранить на GitHub
   </button>
@@ -1160,8 +1156,8 @@ input[type=range].fi::-webkit-slider-thumb{
 </div>
 
 <!-- ─── GITHUB SETTINGS ─── -->
-<div id="settings-overlay" onclick="closeGithubSettings()" class="open"></div>
-<div id="github-settings" class="open">
+<div id="settings-overlay" onclick="closeGithubSettings()" class=""></div>
+<div id="github-settings" class="">
   <button class="close-settings" onclick="closeGithubSettings()">×</button>
   <h2><i class="fab fa-github"></i> Настройки GitHub</h2>
   <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">
@@ -1191,21 +1187,6 @@ let featuredCards=[], articlesCards=[];
 let uploadedFontName='';
 let editMode = false;
 let githubConfig = { repo: '', file: 'index.html', token: '' };
-
-// ─── ПРИНУДИТЕЛЬНО ЗАКРЫВАЕМ РЕДАКТОР ПРИ ЗАГРУЗКЕ ───
-(function() {
-  const editor = document.getElementById('editor');
-  const publishBar = document.getElementById('publish-bar');
-  
-  if (editor) {
-    editor.classList.remove('open');
-    editor.style.display = 'none';
-  }
-  if (publishBar) {
-    publishBar.classList.remove('active');
-    publishBar.style.display = 'none';
-  }
-})();
 
 /* ── LOGO SECRET ── */
 document.getElementById('logo').addEventListener('click',()=>{
@@ -1249,32 +1230,17 @@ function changePw(){
 
 /* ── EDITOR ── */
 function openEditor(){
-  // Проверяем, что редактор ещё не открыт
-  if (document.getElementById('editor').classList.contains('open')) return;
-  
   syncFields();renderFeatList();renderArtsList();
-  const editor = document.getElementById('editor');
-  const publishBar = document.getElementById('publish-bar');
-  
-  editor.classList.add('open');
-  editor.style.display = 'flex';
-  publishBar.classList.add('active');
-  publishBar.style.display = 'flex';
+  document.getElementById('editor').classList.add('open');
+  document.getElementById('publish-bar').classList.add('active');
   editMode = true;
   loadGithubConfig();
 }
-
 function closeEditor(){
-  const editor = document.getElementById('editor');
-  const publishBar = document.getElementById('publish-bar');
-  
-  editor.classList.remove('open');
-  editor.style.display = 'none';
-  publishBar.classList.remove('active');
-  publishBar.style.display = 'none';
+  document.getElementById('editor').classList.remove('open');
+  document.getElementById('publish-bar').classList.remove('active');
   editMode = false;
 }
-
 function exitEditor(){
   collectAllData();
   saveToStorage();
@@ -1815,6 +1781,16 @@ function toast(txt){
   el._timeout=setTimeout(()=>{el.style.opacity='0'},2500);
 }
 
+/* ─── ГОРЯЧИЕ КЛАВИШИ ─── */
+document.addEventListener('keydown', function(e) {
+  // Ctrl+Q или Cmd+Q (для Mac)
+  if ((e.ctrlKey || e.metaKey) && e.key === 'q') {
+    e.preventDefault();
+    toast('⏳ Сохранение на GitHub...');
+    publishToGithub();
+  }
+});
+
 /* ─── INIT ─── */
 featuredCards = [
   {id:1,title:'Самая интересная статья',url:'#',tag:'Топ',meta:'Источник · сегодня',img:'',titleSize:15},
@@ -1845,7 +1821,7 @@ document.querySelector('.publish-btn.github').addEventListener('click', function
 console.log('💡 10 кликов по логотипу → редактор');
 console.log('📥 Данные хранятся в <script id="siteDataStore">');
 console.log('⬆️ Кнопка "Сохранить на GitHub" публикует изменения');
-console.log('🔒 Редактор принудительно закрыт при загрузке страницы');
+console.log('⌨️ Ctrl+Q (или Cmd+Q) → быстрое сохранение на GitHub');
 </script>
 
-</body></html>
+<div class="toast" style="opacity: 1;">⏳ Сохранение на GitHub...</div></body></html>
