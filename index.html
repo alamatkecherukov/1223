@@ -761,7 +761,7 @@ input[type=range].fi::-webkit-slider-thumb{
 <footer id="site-footer"><span id="footer-text">© 2025 Медиа</span></footer>
 
 <!-- PASSWORD OVERLAY -->
-<div id="pw-overlay">
+<div id="pw-overlay" class="">
   <div id="pw-box">
     <h2>Редактор</h2>
     <p>Введите пароль для доступа</p>
@@ -773,7 +773,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div>
 
 <!-- EDITOR -->
-<div id="editor">
+<div id="editor" class="">
   <div id="ed-topbar">
     <span id="ed-topbar-title">✦ РЕДАКТОР</span>
     <button id="ed-close" onclick="closeEditor()">×</button>
@@ -1146,7 +1146,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div><!-- /editor -->
 
 <!-- ─── PUBLISH BAR ─── -->
-<div id="publish-bar">
+<div id="publish-bar" class="">
   <button class="publish-btn github" onclick="openGithubSettings()">
     <i class="fab fa-github"></i> Сохранить на GitHub
   </button>
@@ -1156,8 +1156,8 @@ input[type=range].fi::-webkit-slider-thumb{
 </div>
 
 <!-- ─── GITHUB SETTINGS ─── -->
-<div id="settings-overlay" onclick="closeGithubSettings()" class=""></div>
-<div id="github-settings" class="">
+<div id="settings-overlay" onclick="closeGithubSettings()" class="open"></div>
+<div id="github-settings" class="open">
   <button class="close-settings" onclick="closeGithubSettings()">×</button>
   <h2><i class="fab fa-github"></i> Настройки GitHub</h2>
   <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">
@@ -1824,4 +1824,4 @@ console.log('⬆️ Кнопка "Сохранить на GitHub" публику
 console.log('⌨️ Ctrl+Q (или Cmd+Q) → быстрое сохранение на GitHub');
 </script>
 
-<div class="toast" style="opacity: 1;">⏳ Сохранение на GitHub...</div></body></html>
+<div class="toast" style="opacity: 0;">❌ Ошибка публикации</div></body></html>
