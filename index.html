@@ -1,10 +1,9 @@
-cat > /mnt/user-data/outputs/site.html << 'HTMLEOF'
 <!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru" style="--logo-size: 22px; --bg: #0a0a0f; --accent: #a78bfa; --text: #f0f0f0; --hero-overlay: rgba(5,5,15,5);"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Медиа</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 /* ── VARS ── */
 :root {
@@ -40,7 +39,6 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-/* subtle animated bg */
 body::before{
   content:'';
   position:fixed;inset:0;
@@ -52,7 +50,6 @@ body::before{
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 
-/* ── GLASS MIXIN (via class) ── */
 .glass{
   background:var(--glass);
   backdrop-filter:var(--blur);
@@ -66,7 +63,6 @@ a{color:inherit;text-decoration:none}
   border:1px solid var(--glass-border);
 }
 
-/* ── TOPBAR ── */
 #topbar{
   position:sticky;top:0;z-index:50;
   height:54px;
@@ -91,12 +87,12 @@ a{color:inherit;text-decoration:none}
 }
 #logo:hover{opacity:.8}
 
-/* ── HERO ── */
 #hero{
   position:relative;
   width:100%;
   min-height:min(520px,75vw);
-  display:flex;align-items:flex-end;
+  display:flex;
+  align-items:flex-end;
   overflow:hidden;
   background:linear-gradient(135deg,#0d0d1a 0%,#0a0a12 100%);
 }
@@ -141,7 +137,6 @@ a{color:inherit;text-decoration:none}
   line-height:1.65;
 }
 
-/* ── SECTIONS ── */
 .section{
   padding:clamp(28px,4vw,52px) clamp(14px,4vw,48px);
   position:relative;z-index:1;
@@ -158,7 +153,6 @@ a{color:inherit;text-decoration:none}
   color:var(--accent);
 }
 
-/* ── TOGGLE BTN ── */
 #toggle-articles-btn{
   display:flex;align-items:center;gap:6px;
   background:var(--glass);
@@ -176,7 +170,6 @@ a{color:inherit;text-decoration:none}
 #toggle-articles-btn .arr{font-size:9px;transition:transform .25s}
 #toggle-articles-btn.collapsed .arr{transform:rotate(-90deg)}
 
-/* ── GRIDS ── */
 #featured-grid,#articles-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -190,7 +183,6 @@ a{color:inherit;text-decoration:none}
   #featured-grid,#articles-grid{grid-template-columns:repeat(2,1fr)}
 }
 
-/* ── CARD ── */
 .card{
   position:relative;
   overflow:hidden;
@@ -236,13 +228,11 @@ a{color:inherit;text-decoration:none}
   color:#fff;line-height:1.35;
 }
 .card .card-meta{font-size:11px;color:rgba(255,255,255,0.45);margin-top:5px}
-/* card no-image placeholder */
 .card .card-placeholder{
   position:absolute;inset:0;
   background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(59,130,246,0.1));
 }
 
-/* ── EXTRA BLOCKS ── */
 #extra-blocks{
   padding:0 clamp(14px,4vw,48px) clamp(40px,5vw,80px);
   display:flex;flex-direction:column;gap:20px;
@@ -267,7 +257,6 @@ a{color:inherit;text-decoration:none}
   padding:0;background:none;backdrop-filter:none;
 }
 
-/* ── FOOTER ── */
 #site-footer{
   border-top:1px solid var(--glass-border);
   padding:24px clamp(14px,4vw,48px);
@@ -276,9 +265,6 @@ a{color:inherit;text-decoration:none}
   position:relative;z-index:1;
 }
 
-/* ════════════════════════════
-   PASSWORD OVERLAY
-════════════════════════════ */
 #pw-overlay{
   display:none;
   position:fixed;inset:0;
@@ -337,9 +323,6 @@ a{color:inherit;text-decoration:none}
 .pw-cancel:hover{color:var(--text)}
 #pw-err-msg{font-size:11px;color:#f87171;min-height:14px;margin-top:4px}
 
-/* ════════════════════════════
-   EDITOR
-════════════════════════════ */
 #editor{
   display:none;
   position:fixed;top:0;right:0;
@@ -378,7 +361,6 @@ a{color:inherit;text-decoration:none}
 }
 #ed-close:hover{background:rgba(255,255,255,0.12);color:#fff}
 
-/* tabs */
 #ed-tabs{
   display:flex;
   border-bottom:1px solid rgba(255,255,255,0.08);
@@ -409,7 +391,6 @@ a{color:inherit;text-decoration:none}
   border-color:rgba(167,139,250,0.2);
 }
 
-/* tab panes */
 #ed-scroll{flex:1;overflow-y:auto;overflow-x:hidden}
 #ed-scroll::-webkit-scrollbar{width:3px}
 #ed-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
@@ -417,7 +398,6 @@ a{color:inherit;text-decoration:none}
 .ed-pane{display:none;padding:14px;flex-direction:column;gap:10px}
 .ed-pane.active{display:flex}
 
-/* accordion inside pane */
 .acc{
   border-radius:10px;
   overflow:hidden;
@@ -451,7 +431,6 @@ a{color:inherit;text-decoration:none}
   background:rgba(255,255,255,0.02);
 }
 
-/* form fields */
 .fl{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:.5px;text-transform:uppercase}
 .fi{
   width:100%;
@@ -478,7 +457,6 @@ input[type=color].fcolor{
   cursor:pointer;padding:3px;flex-shrink:0;
 }
 
-/* upload button */
 .upload-btn{
   display:flex;align-items:center;gap:8px;
   padding:9px 12px;
@@ -493,7 +471,6 @@ input[type=color].fcolor{
 .upload-btn:hover{background:rgba(167,139,250,0.18);border-color:rgba(167,139,250,0.4)}
 .upload-btn input[type=file]{display:none}
 
-/* range */
 input[type=range].fi{
   padding:0;height:4px;
   border:none;background:rgba(255,255,255,0.1);
@@ -509,7 +486,6 @@ input[type=range].fi::-webkit-slider-thumb{
   box-shadow:0 0 8px rgba(167,139,250,0.5);
 }
 
-/* glass button */
 .gbtn{
   display:flex;align-items:center;gap:8px;
   padding:9px 12px;
@@ -522,7 +498,6 @@ input[type=range].fi::-webkit-slider-thumb{
 }
 .gbtn:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.2)}
 
-/* primary button */
 .pbtn{
   width:100%;padding:10px;
   background:linear-gradient(135deg,rgba(139,92,246,0.7),rgba(99,102,241,0.7));
@@ -537,7 +512,6 @@ input[type=range].fi::-webkit-slider-thumb{
 .pbtn:hover{opacity:.9}
 .pbtn:active{transform:scale(.98)}
 
-/* font pills */
 .font-row{display:flex;gap:6px}
 .fpill{
   flex:1;padding:7px 4px;
@@ -554,7 +528,6 @@ input[type=range].fi::-webkit-slider-thumb{
   background:rgba(167,139,250,0.1);
 }
 
-/* cols row */
 .cols-row{display:flex;gap:6px}
 .cpill{
   flex:1;padding:8px 4px;
@@ -571,7 +544,6 @@ input[type=range].fi::-webkit-slider-thumb{
   background:rgba(96,165,250,0.1);
 }
 
-/* card list item */
 .card-item{
   display:flex;align-items:center;gap:6px;
   padding:8px 10px;
@@ -591,7 +563,6 @@ input[type=range].fi::-webkit-slider-thumb{
 }
 .card-item-btn:hover{background:rgba(167,139,250,0.15);color:#c4b5fd}
 
-/* img preview */
 .img-preview{
   width:100%;height:70px;
   background:rgba(255,255,255,0.04);
@@ -602,14 +573,11 @@ input[type=range].fi::-webkit-slider-thumb{
 }
 .img-preview.show{display:block}
 
-/* divider */
 .sep{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:2px 0}
 
-/* msg */
 .fmsg{font-size:11px;color:#a78bfa;min-height:14px}
 .fmsg.err{color:#f87171}
 
-/* toast */
 .toast{
   position:fixed;bottom:20px;left:50%;
   transform:translateX(-50%);
@@ -623,6 +591,83 @@ input[type=range].fi::-webkit-slider-thumb{
   opacity:1;transition:opacity .35s;
   white-space:nowrap;
 }
+
+/* ─── PUBLISH BAR ─── */
+#publish-bar {
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:100;
+  padding:12px 20px;
+  background:rgba(10,10,20,0.92);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--glass-border);
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+#publish-bar.active{display:flex}
+.publish-btn {
+  padding:10px 24px;
+  border-radius:30px;
+  border:none;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  transition:all .2s;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.publish-btn.github {
+  background:linear-gradient(135deg,#24292e,#1a1e22);
+  color:#fff;
+}
+.publish-btn.github:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(36,41,46,0.4)}
+.publish-btn.exit {
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.15);
+}
+.publish-btn.exit:hover{background:rgba(255,255,255,0.2)}
+
+/* ─── GITHUB SETTINGS ─── */
+#github-settings {
+  display:none;
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:400;
+  background:rgba(10,10,20,0.95);
+  backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  padding:30px;
+  width:min(400px,90vw);
+  box-shadow:0 24px 80px rgba(0,0,0,0.6);
+}
+#github-settings.open{display:block}
+#github-settings h2{font-size:20px;margin-bottom:16px;color:#fff}
+#github-settings .fi{margin-bottom:12px}
+#github-settings .pbtn{margin-top:8px}
+#github-settings .close-settings{
+  position:absolute;top:12px;right:16px;
+  background:none;border:none;
+  color:var(--muted);font-size:24px;
+  cursor:pointer;
+}
+#github-settings .close-settings:hover{color:#fff}
+#github-status{font-size:13px;margin-top:10px;min-height:20px}
+#github-status.success{color:#34d399}
+#github-status.error{color:#f87171}
+#github-status.loading{color:#60a5fa}
+
+/* ─── OVERLAY ─── */
+#settings-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.5);
+  z-index:399;
+}
+#settings-overlay.open{display:block}
 </style>
 </head>
 <body>
@@ -637,7 +682,7 @@ input[type=range].fi::-webkit-slider-thumb{
   <img id="hero-bg-img" alt="">
   <div id="hero-bg-color-layer"></div>
   <div id="hero-content">
-    <div id="hero-label">Главное</div>
+    <div id="hero-label">Главноеукпукппкп</div>
     <h1 id="hero-title">Добро пожаловать</h1>
     <p id="hero-sub">Подзаголовок шапки — здесь можно написать о чём этот сайт</p>
   </div>
@@ -648,7 +693,31 @@ input[type=range].fi::-webkit-slider-thumb{
   <div class="section-head">
     <div class="section-label" id="featured-label">Самые интересные</div>
   </div>
-  <div id="featured-grid"></div>
+  <div id="featured-grid"><a class="card" href="#" target="_blank">
+    <div class="card-placeholder"></div>
+    <div class="card-overlay"></div>
+    <div class="card-body">
+      <div class="card-tag">Топ</div>
+      <div class="card-title" style="font-size:15px;font-family:var(--font-card)">Самая интересная статья</div>
+      <div class="card-meta">Источник · сегодня</div>
+    </div>
+  </a><a class="card" href="#" target="_blank">
+    <div class="card-placeholder"></div>
+    <div class="card-overlay"></div>
+    <div class="card-body">
+      <div class="card-tag">Разбор</div>
+      <div class="card-title" style="font-size:15px;font-family:var(--font-card)">Ещё один важный материал</div>
+      <div class="card-meta">Источник · вчера</div>
+    </div>
+  </a><a class="card" href="#" target="_blank">
+    <div class="card-placeholder"></div>
+    <div class="card-overlay"></div>
+    <div class="card-body">
+      <div class="card-tag">Мнение</div>
+      <div class="card-title" style="font-size:15px;font-family:var(--font-card)">Обязательно к прочтению</div>
+      <div class="card-meta">Источник · 2 дня назад</div>
+    </div>
+  </a></div>
 </section>
 
 <!-- ALL ARTICLES -->
@@ -659,7 +728,31 @@ input[type=range].fi::-webkit-slider-thumb{
       Свернуть <span class="arr">▲</span>
     </button>
   </div>
-  <div id="articles-grid"></div>
+  <div id="articles-grid" style="grid-template-columns: repeat(3, 1fr);"><a class="card" href="#" target="_blank">
+    <div class="card-placeholder"></div>
+    <div class="card-overlay"></div>
+    <div class="card-body">
+      <div class="card-tag">Новость</div>
+      <div class="card-title" style="font-size:15px;font-family:var(--font-card)">Статья первая</div>
+      <div class="card-meta">Источник</div>
+    </div>
+  </a><a class="card" href="#" target="_blank">
+    <div class="card-placeholder"></div>
+    <div class="card-overlay"></div>
+    <div class="card-body">
+      <div class="card-tag">Аналитика</div>
+      <div class="card-title" style="font-size:15px;font-family:var(--font-card)">Статья вторая</div>
+      <div class="card-meta">Источник</div>
+    </div>
+  </a><a class="card" href="#" target="_blank">
+    <div class="card-placeholder"></div>
+    <div class="card-overlay"></div>
+    <div class="card-body">
+      <div class="card-tag">Репортаж</div>
+      <div class="card-title" style="font-size:15px;font-family:var(--font-card)">Статья третья</div>
+      <div class="card-meta">Источник</div>
+    </div>
+  </a></div>
 </section>
 
 <!-- EXTRA -->
@@ -669,7 +762,7 @@ input[type=range].fi::-webkit-slider-thumb{
 <footer id="site-footer"><span id="footer-text">© 2025 Медиа</span></footer>
 
 <!-- PASSWORD OVERLAY -->
-<div id="pw-overlay">
+<div id="pw-overlay" class="">
   <div id="pw-box">
     <h2>Редактор</h2>
     <p>Введите пароль для доступа</p>
@@ -681,7 +774,7 @@ input[type=range].fi::-webkit-slider-thumb{
 </div>
 
 <!-- EDITOR -->
-<div id="editor">
+<div id="editor" class="open">
   <div id="ed-topbar">
     <span id="ed-topbar-title">✦ РЕДАКТОР</span>
     <button id="ed-close" onclick="closeEditor()">×</button>
@@ -868,7 +961,19 @@ input[type=range].fi::-webkit-slider-thumb{
             <input class="fi" id="ed-feat-label" type="text" placeholder="Самые интересные">
           </div>
           <button class="gbtn" onclick="openCF('featured',null)"><span>＋</span> Добавить карточку</button>
-          <div id="feat-list"></div>
+          <div id="feat-list"><div class="card-item">
+    <div class="card-item-title">Самая интересная статья</div>
+    <button class="card-item-btn" onclick="openCF('featured',1)" title="Редактировать">✏</button>
+    <button class="card-item-btn" onclick="delCard('featured',1)" title="Удалить" style="color:#f87171">✕</button>
+  </div><div class="card-item">
+    <div class="card-item-title">Ещё один важный материал</div>
+    <button class="card-item-btn" onclick="openCF('featured',2)" title="Редактировать">✏</button>
+    <button class="card-item-btn" onclick="delCard('featured',2)" title="Удалить" style="color:#f87171">✕</button>
+  </div><div class="card-item">
+    <div class="card-item-title">Обязательно к прочтению</div>
+    <button class="card-item-btn" onclick="openCF('featured',3)" title="Редактировать">✏</button>
+    <button class="card-item-btn" onclick="delCard('featured',3)" title="Удалить" style="color:#f87171">✕</button>
+  </div></div>
           <button class="pbtn" onclick="applyFeatLabel()">Применить заголовок</button>
         </div></div>
       </div>
@@ -892,7 +997,19 @@ input[type=range].fi::-webkit-slider-thumb{
             </div>
           </div>
           <button class="gbtn" onclick="openCF('articles',null)"><span>＋</span> Добавить статью</button>
-          <div id="arts-list"></div>
+          <div id="arts-list"><div class="card-item">
+    <div class="card-item-title">Статья первая</div>
+    <button class="card-item-btn" onclick="openCF('articles',10)" title="Редактировать">✏</button>
+    <button class="card-item-btn" onclick="delCard('articles',10)" title="Удалить" style="color:#f87171">✕</button>
+  </div><div class="card-item">
+    <div class="card-item-title">Статья вторая</div>
+    <button class="card-item-btn" onclick="openCF('articles',11)" title="Редактировать">✏</button>
+    <button class="card-item-btn" onclick="delCard('articles',11)" title="Удалить" style="color:#f87171">✕</button>
+  </div><div class="card-item">
+    <div class="card-item-title">Статья третья</div>
+    <button class="card-item-btn" onclick="openCF('articles',12)" title="Редактировать">✏</button>
+    <button class="card-item-btn" onclick="delCard('articles',12)" title="Удалить" style="color:#f87171">✕</button>
+  </div></div>
           <button class="pbtn" onclick="applyArtsLabel()">Применить заголовок</button>
         </div></div>
       </div>
@@ -1029,6 +1146,35 @@ input[type=range].fi::-webkit-slider-thumb{
   </div><!-- /ed-scroll -->
 </div><!-- /editor -->
 
+<!-- ─── PUBLISH BAR ─── -->
+<div id="publish-bar" class="active">
+  <button class="publish-btn github" onclick="openGithubSettings()">
+    <i class="fab fa-github"></i> Сохранить на GitHub
+  </button>
+  <button class="publish-btn exit" onclick="exitEditor()">
+    <i class="fas fa-times"></i> Выйти
+  </button>
+</div>
+
+<!-- ─── GITHUB SETTINGS ─── -->
+<div id="settings-overlay" onclick="closeGithubSettings()" class="open"></div>
+<div id="github-settings" class="open">
+  <button class="close-settings" onclick="closeGithubSettings()">×</button>
+  <h2><i class="fab fa-github"></i> Настройки GitHub</h2>
+  <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+    Введите данные для публикации на GitHub.<br>
+    Токен можно создать в <a href="https://github.com/settings/tokens" target="_blank" style="color:#a78bfa;">GitHub Settings → Tokens</a>
+  </div>
+  <input class="fi" id="github-repo" type="text" placeholder="Имя репозитория (username/repo)">
+  <input class="fi" id="github-file" type="text" placeholder="Путь к файлу" value="index.html">
+  <input class="fi" id="github-token" type="password" placeholder="Personal Access Token">
+  <button class="pbtn" onclick="saveGithubSettings()">💾 Сохранить настройки</button>
+  <div id="github-status" class="loading">⏳ Отправка на GitHub...</div>
+</div>
+
+<!-- ─── ХРАНИЛИЩЕ ДАННЫХ ─── -->
+<script type="application/json" id="siteDataStore">{"logo":"МЕДИА","logoSize":22,"heroLabel":"Главноеукпукппкп","heroTitle":"Добро пожаловать","heroSub":"Подзаголовок шапки — здесь можно написать о чём этот сайт","featuredLabel":"Самые интересные","articlesLabel":"Все статьи","footerText":"© 2025 Медиа","bgColor":"#0a0a0f","accentColor":"#a78bfa","textColor":"#f0f0f0","heroBg":"","heroOverlay":5,"featuredCards":[{"id":1,"title":"Самая интересная статья","url":"#","tag":"Топ","meta":"Источник · сегодня","img":"","titleSize":15},{"id":2,"title":"Ещё один важный материал","url":"#","tag":"Разбор","meta":"Источник · вчера","img":"","titleSize":15},{"id":3,"title":"Обязательно к прочтению","url":"#","tag":"Мнение","meta":"Источник · 2 дня назад","img":"","titleSize":15}],"articlesCards":[{"id":10,"title":"Статья первая","url":"#","tag":"Новость","meta":"Источник","img":"","titleSize":15},{"id":11,"title":"Статья вторая","url":"#","tag":"Аналитика","meta":"Источник","img":"","titleSize":15},{"id":12,"title":"Статья третья","url":"#","tag":"Репортаж","meta":"Источник","img":"","titleSize":15}],"extraBlocks":[]}</script>
+
 <script>
 /* ── STATE ── */
 const PW_KEY = 'site_pw_v3';
@@ -1040,6 +1186,8 @@ let cfTarget='articles', cfEditId=null;
 let articleCols=3;
 let featuredCards=[], articlesCards=[];
 let uploadedFontName='';
+let editMode = false;
+let githubConfig = { repo: '', file: 'index.html', token: '' };
 
 /* ── LOGO SECRET ── */
 document.getElementById('logo').addEventListener('click',()=>{
@@ -1085,8 +1233,21 @@ function changePw(){
 function openEditor(){
   syncFields();renderFeatList();renderArtsList();
   document.getElementById('editor').classList.add('open');
+  document.getElementById('publish-bar').classList.add('active');
+  editMode = true;
+  loadGithubConfig();
 }
-function closeEditor(){document.getElementById('editor').classList.remove('open')}
+function closeEditor(){
+  document.getElementById('editor').classList.remove('open');
+  document.getElementById('publish-bar').classList.remove('active');
+  editMode = false;
+}
+function exitEditor(){
+  collectAllData();
+  saveToStorage();
+  closeEditor();
+  toast('💾 Изменения сохранены. Нажмите "Сохранить на GitHub" чтобы опубликовать.');
+}
 function syncFields(){
   document.getElementById('ed-logo').value=document.getElementById('logo').textContent;
   document.getElementById('ed-hero-label').value=document.getElementById('hero-label').textContent;
@@ -1126,7 +1287,6 @@ function applyTopbar(){
   document.title=v('ed-logo')||document.title;
   toast('Топ-бар обновлён ✓');
 }
-// sync color pair
 document.getElementById('ed-topbar-bg').addEventListener('input',function(){syncHex('ed-topbar-bg-hex',this.value)});
 document.getElementById('ed-topbar-bg-hex').addEventListener('input',function(){syncC('ed-topbar-bg',this.value)});
 
@@ -1289,7 +1449,6 @@ function openCF(target,id){
   document.getElementById('cf-msg').textContent='';
   const p=document.getElementById('cf-img-preview');
   if(c&&c.img){p.src=c.img;p.classList.add('show')}else{p.src='';p.classList.remove('show')}
-  // open acc and switch tab
   switchTab('cards');
   const acc=document.getElementById('cf-acc');
   acc.classList.add('open');
@@ -1399,7 +1558,208 @@ function clearExtra(){
   if(confirm('Удалить все блоки?')) document.getElementById('extra-blocks').innerHTML='';
 }
 
-/* ── CSS HELPERS ── */
+/* ─── СОБИРАЕМ ВСЕ ДАННЫЕ ─── */
+function collectAllData() {
+  return {
+    logo: document.getElementById('logo').textContent,
+    logoSize: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--logo-size')) || 22,
+    heroLabel: document.getElementById('hero-label').textContent,
+    heroTitle: document.getElementById('hero-title').textContent,
+    heroSub: document.getElementById('hero-sub').textContent,
+    featuredLabel: document.getElementById('featured-label').textContent,
+    articlesLabel: document.getElementById('articles-label').textContent,
+    footerText: document.getElementById('footer-text').textContent,
+    bgColor: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#0a0a0f',
+    accentColor: getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#a78bfa',
+    textColor: getComputedStyle(document.documentElement).getPropertyValue('--text').trim() || '#f0f0f0',
+    heroBg: document.getElementById('hero-bg-img').src || '',
+    heroOverlay: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hero-overlay').match(/[\d.]+/)?.[0] || '0.52'),
+    featuredCards: featuredCards,
+    articlesCards: articlesCards,
+    extraBlocks: Array.from(document.getElementById('extra-blocks').children).map(el => el.outerHTML)
+  };
+}
+
+/* ─── СОХРАНЕНИЕ В ХРАНИЛИЩЕ ─── */
+function saveToStorage() {
+  const data = collectAllData();
+  const store = document.getElementById('siteDataStore');
+  if (store) {
+    store.textContent = JSON.stringify(data);
+  }
+  try { localStorage.setItem('siteDataDraft', JSON.stringify(data)); } catch(e) {}
+}
+
+/* ─── ЗАГРУЗКА ИЗ ХРАНИЛИЩА ─── */
+function loadFromStorage() {
+  const store = document.getElementById('siteDataStore');
+  if (store) {
+    const raw = store.textContent.trim();
+    if (raw && raw !== '[]') {
+      try {
+        const data = JSON.parse(raw);
+        applyData(data);
+        return true;
+      } catch(e) {}
+    }
+  }
+  try {
+    const draft = localStorage.getItem('siteDataDraft');
+    if (draft) {
+      const data = JSON.parse(draft);
+      applyData(data);
+      toast('↩️ Восстановлен черновик');
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+/* ─── ПРИМЕНЕНИЕ ДАННЫХ ─── */
+function applyData(data) {
+  if (data.logo) document.getElementById('logo').textContent = data.logo;
+  if (data.logoSize) setV('--logo-size', data.logoSize + 'px');
+  if (data.heroLabel) document.getElementById('hero-label').textContent = data.heroLabel;
+  if (data.heroTitle) document.getElementById('hero-title').textContent = data.heroTitle;
+  if (data.heroSub) document.getElementById('hero-sub').textContent = data.heroSub;
+  if (data.featuredLabel) document.getElementById('featured-label').textContent = data.featuredLabel;
+  if (data.articlesLabel) document.getElementById('articles-label').textContent = data.articlesLabel;
+  if (data.footerText) document.getElementById('footer-text').textContent = data.footerText;
+  if (data.bgColor) setV('--bg', data.bgColor);
+  if (data.accentColor) setV('--accent', data.accentColor);
+  if (data.textColor) setV('--text', data.textColor);
+  if (data.heroBg) {
+    document.getElementById('hero-bg-img').src = data.heroBg;
+    document.getElementById('hero-bg-img').style.display = 'block';
+  }
+  if (data.heroOverlay !== undefined) setV('--hero-overlay', `rgba(5,5,15,${data.heroOverlay})`);
+  
+  if (data.featuredCards) {
+    featuredCards = data.featuredCards;
+    renderFeatured();
+    renderFeatList();
+  }
+  if (data.articlesCards) {
+    articlesCards = data.articlesCards;
+    renderArticles();
+    renderArtsList();
+  }
+  if (data.extraBlocks) {
+    document.getElementById('extra-blocks').innerHTML = data.extraBlocks.join('');
+  }
+}
+
+/* ─── GITHUB НАСТРОЙКИ ─── */
+function loadGithubConfig() {
+  try {
+    const saved = localStorage.getItem('githubConfig');
+    if (saved) {
+      githubConfig = JSON.parse(saved);
+      document.getElementById('github-repo').value = githubConfig.repo || '';
+      document.getElementById('github-file').value = githubConfig.file || 'index.html';
+      document.getElementById('github-token').value = githubConfig.token || '';
+    }
+  } catch(e) {}
+}
+
+function saveGithubSettings() {
+  githubConfig.repo = document.getElementById('github-repo').value.trim();
+  githubConfig.file = document.getElementById('github-file').value.trim() || 'index.html';
+  githubConfig.token = document.getElementById('github-token').value.trim();
+  
+  if (!githubConfig.repo || !githubConfig.token) {
+    setGithubStatus('❌ Заполните все поля', 'error');
+    return;
+  }
+  
+  localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
+  setGithubStatus('✅ Настройки сохранены!', 'success');
+  setTimeout(closeGithubSettings, 1500);
+}
+
+function openGithubSettings() {
+  document.getElementById('github-settings').classList.add('open');
+  document.getElementById('settings-overlay').classList.add('open');
+  loadGithubConfig();
+}
+
+function closeGithubSettings() {
+  document.getElementById('github-settings').classList.remove('open');
+  document.getElementById('settings-overlay').classList.remove('open');
+  document.getElementById('github-status').textContent = '';
+}
+
+function setGithubStatus(text, type) {
+  const el = document.getElementById('github-status');
+  el.textContent = text;
+  el.className = type;
+}
+
+/* ─── ПУБЛИКАЦИЯ НА GITHUB ─── */
+async function publishToGithub() {
+  if (!githubConfig.repo || !githubConfig.token) {
+    toast('⚠️ Сначала настройте GitHub');
+    openGithubSettings();
+    return;
+  }
+  
+  setGithubStatus('⏳ Отправка на GitHub...', 'loading');
+  
+  try {
+    // Сохраняем данные
+    saveToStorage();
+    
+    // Получаем полный HTML
+    const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const encoded = btoa(unescape(encodeURIComponent(fullHtml)));
+    
+    // Проверяем существует ли файл
+    let sha = null;
+    try {
+      const checkRes = await fetch(`https://api.github.com/repos/${githubConfig.repo}/contents/${githubConfig.file}`, {
+        headers: {
+          'Authorization': `token ${githubConfig.token}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+      if (checkRes.ok) {
+        const data = await checkRes.json();
+        sha = data.sha;
+      }
+    } catch(e) {}
+    
+    // Отправляем
+    const res = await fetch(`https://api.github.com/repos/${githubConfig.repo}/contents/${githubConfig.file}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${githubConfig.token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify({
+        message: 'Обновление сайта через редактор',
+        content: encoded,
+        sha: sha,
+        branch: 'main'
+      })
+    });
+    
+    if (res.ok) {
+      setGithubStatus('✅ Успешно опубликовано на GitHub!', 'success');
+      toast('✅ Сайт опубликован на GitHub!');
+      setTimeout(closeGithubSettings, 2000);
+    } else {
+      const error = await res.json();
+      setGithubStatus('❌ Ошибка: ' + (error.message || 'Неизвестная ошибка'), 'error');
+      toast('❌ Ошибка публикации');
+    }
+  } catch(e) {
+    setGithubStatus('❌ Ошибка: ' + e.message, 'error');
+    toast('❌ Ошибка соединения');
+  }
+}
+
+/* ─── CSS HELPERS ── */
 function setV(v,val){document.documentElement.style.setProperty(v,val)}
 function syncHex(id,val){const el=document.getElementById(id);if(el)el.value=val}
 function syncC(id,val){try{document.getElementById(id).value=val}catch(e){}}
@@ -1410,26 +1770,48 @@ function hexToRgb(hex){
 
 /* ── TOAST ── */
 function toast(txt){
-  const el=document.createElement('div');el.className='toast';el.textContent=txt;
-  document.body.appendChild(el);
-  setTimeout(()=>{el.style.opacity='0';setTimeout(()=>el.remove(),400)},1800);
+  let el=document.querySelector('.toast');
+  if(!el){
+    el=document.createElement('div');
+    el.className='toast';
+    document.body.appendChild(el);
+  }
+  el.textContent=txt;
+  el.style.opacity='1';
+  clearTimeout(el._timeout);
+  el._timeout=setTimeout(()=>{el.style.opacity='0'},2500);
 }
 
-/* ── INIT ── */
-featuredCards=[
+/* ─── INIT ─── */
+featuredCards = [
   {id:1,title:'Самая интересная статья',url:'#',tag:'Топ',meta:'Источник · сегодня',img:'',titleSize:15},
   {id:2,title:'Ещё один важный материал',url:'#',tag:'Разбор',meta:'Источник · вчера',img:'',titleSize:15},
   {id:3,title:'Обязательно к прочтению',url:'#',tag:'Мнение',meta:'Источник · 2 дня назад',img:'',titleSize:15},
 ];
-articlesCards=[
+articlesCards = [
   {id:10,title:'Статья первая',url:'#',tag:'Новость',meta:'Источник',img:'',titleSize:15},
   {id:11,title:'Статья вторая',url:'#',tag:'Аналитика',meta:'Источник',img:'',titleSize:15},
   {id:12,title:'Статья третья',url:'#',tag:'Репортаж',meta:'Источник',img:'',titleSize:15},
 ];
-renderFeatured();
-renderArticles();
-</script>
-</body>
-</html>
-HTMLEOF
-echo "ok"
+
+if (!loadFromStorage()) {
+  renderFeatured();
+  renderArticles();
+}
+
+// Привязка кнопки GitHub
+document.querySelector('.publish-btn.github').addEventListener('click', function() {
+  // Если настройки уже сохранены - публикуем сразу
+  if (githubConfig.repo && githubConfig.token) {
+    publishToGithub();
+  } else {
+    openGithubSettings();
+  }
+});
+
+console.log('💡 10 кликов по логотипу → редактор');
+console.log('📥 Данные хранятся в <script id="siteDataStore">');
+console.log('⬆️ Кнопка "Сохранить на GitHub" публикует изменения');
+</script><div class="toast" style="opacity: 0;">↩️ Восстановлен черновик</div>
+
+</body></html>
